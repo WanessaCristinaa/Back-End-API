@@ -13,19 +13,21 @@ const porta = 3333 // criando a porta
 //criando lista inicial de mulheres
 const mulheres = [
   {
-    id: '1',
-    nome: 'Ada Lovelace',
-    imagem: 'img/adalovelace.webp',
+    id: "1",
+    nome: "Ada Lovelace",
+    imagem:
+      "https://s2-techtudo.glbimg.com/7YOBBhghbMF9wsUuBP7UcUh2yXI=/0x342:2439x2307/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/n/3/FbrmyhQneVYWGUPIe8vA/adalovelace.jpg",
     minibio:
-      'Matemática e escritora inglesa. Hoje é reconhecida principalmente por ter escrito o primeiro algoritmo para ser processado por uma máquina',
+      "Matemática e escritora inglesa. Hoje é reconhecida principalmente por ter escrito o primeiro algoritmo para ser processado por uma máquina",
   },
   {
-    id: '2',
-    nome: 'Mary Kenneth Keller',
-    imagem: 'img/Sister-Mary-Kenneth-Keller.jpg',
+    id: "2",
+    nome: "Mary Kenneth Keller",
+    imagem:
+      "https://www.acton.org/sites/default/files/inline-images/Sister_Mary.jpg",
     minibio:
-      'Foi uma importante freira e cientista da computação. Em 7 de junho de 1965, junto de Irving Tang da Universidade Washington em St. Louis, ela se tornou uma das primeiras doutoras na área em seu país.'
-  }
+      "Foi uma importante freira e cientista da computação. Em 7 de junho de 1965, junto de Irving Tang da Universidade Washington em St. Louis, ela se tornou uma das primeiras doutoras na área em seu país.",
+  },
 ];
 
 
