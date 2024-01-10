@@ -12,3 +12,5 @@ async function conectaBancodeDados(){
         console.log(erro)
     }
 }
+
+module.exports = conectaBancodeDados;

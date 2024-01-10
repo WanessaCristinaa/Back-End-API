@@ -2,6 +2,8 @@ const express =  require("express") // iniciando o express
 const router = express.Router()   // configuração da porta
 const { v4: uuidv4 } = require("uuid"); //
  
+const conectaBancodeDados = require('./bancodeDados')
+conectaBancodeDados()
 
 const app = express() //iniciando o app
 app.use(express.json())
