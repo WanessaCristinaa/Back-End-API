@@ -2,19 +2,19 @@ const mongoose = require('mongoose')
 
 const MulherSchema = new mongoose.Schema({
   nome: {
-    type: string,
+    type: String,
     required: true,
   },
   imagem: {
-    type: string,
+    type: String,
     required: true,
   },
   citacao: {
-    type: string,
+    type: String,
     required: true,
   },
   minibio: {
-    type: string,
+    type: String,
     required: true,
   }
 })

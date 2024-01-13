@@ -91,7 +91,7 @@ async function deletaMulher(request, response){
   
   try{
     await Mulher.findByIdAndDelete(request.params.id)
-    response.json({ mensagem: 'Mensagem deletada com sucesso!' })
+    response.json({ mensagem: 'Mulher deletada com sucesso!' })
 
   } catch (erro) {
       console.log(erro)
