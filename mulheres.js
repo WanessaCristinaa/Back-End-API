@@ -1,9 +1,11 @@
 const express =  require("express") // iniciando o express
 const router = express.Router()   // configuração da porta
-const { v4: uuidv4 } = require("uuid"); //
+
  
 const conectaBancodeDados = require('./bancodeDados')
 conectaBancodeDados()
+
+const Mulher = require('./mulherModel')
 
 const app = express() //iniciando o app
 app.use(express.json())
@@ -12,77 +14,76 @@ const porta = 3333 // criando a porta
 
 
 
-//criando lista inicial de mulheres
-const mulheres = [
-  {
-    id: "1",
-    nome: "Ada Lovelace",
-    imagem:
-      "https://s2-techtudo.glbimg.com/7YOBBhghbMF9wsUuBP7UcUh2yXI=/0x342:2439x2307/1008x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/n/3/FbrmyhQneVYWGUPIe8vA/adalovelace.jpg",
-    minibio:
-      "Matemática e escritora inglesa. Hoje é reconhecida principalmente por ter escrito o primeiro algoritmo para ser processado por uma máquina",
-  },
-  {
-    id: "2",
-    nome: "Mary Kenneth Keller",
-    imagem:
-      "https://www.acton.org/sites/default/files/inline-images/Sister_Mary.jpg",
-    minibio:
-      "Foi uma importante freira e cientista da computação. Em 7 de junho de 1965, junto de Irving Tang da Universidade Washington em St. Louis, ela se tornou uma das primeiras doutoras na área em seu país.",
-  },
-];
 
 
 //GET
-function mostraMulheres(request,response){
-    response.json(mulheres)
+async function mostraMulheres(request,response){
+  try{
+      const mulheresVindasDoBancoDeDados = await Mulher.find()
+  
+      response.json(mulheresVindasDoBancoDeDados);
+
+    }catch (erro){
+      console.log(erro);
+  }
+ 
 }
 
 //POST
-function criaMulher(request, response){
-    const novaMulher = {
-      id: uuidv4(),
+async function criaMulher(request, response){
+    const novaMulher = new Mulher({
       nome: request.body.nome,
       imagem: request.body.imagem,
-      minibio: request.body.minibio
+      minibio: request.body.minibio,
+      citacao: request.body.citacao
+    })
+
+    try {
+      const mulherCriada = await novaMulher.save()
+      response.status(201).json(mulherCriada)
+
+    } catch (erro){
+      console.log(erro)
     }
-
-    //peguei a lista de mulheres e irei add a nova mulher
-mulheres.push(novaMulher)
-
-//ira mostrar a lista de mulheres mais a mulher adicionada
-response.json(mulheres)
 }
 
+
+
 //PATCH
-function corrigeMulher(request, response){
+async function corrigeMulher(request, response){
 
-  //encontrar a mulher de acordo com o id
-  function encontraMulher(mulher) {
-    if (mulher.id === request.params.id) {
-      return mulher;
+  try{
+    const mulherEncontrada = await Mulher.findById(request.params.id);
+
+    //para alterar o nome
+    if (request.body.nome) {
+      mulherEncontrada.nome = request.body.nome;
     }
+
+    //para alterar o minibio
+    if (request.body.minibio) {
+      mulherEncontrada.minibio = request.body.minibio;
+    }
+
+    //para alterar a imagem
+    if (request.body.imagem) {
+      mulherEncontrada = request.body.imagem;
+    }
+
+    if (request.body.citacao) {
+      mulherEncontrada = request.body.citacao;
+    }
+
+    //salvando
+    const mulherAtualizadaNoBancoDeDados = await mulherEncontrada.save()
+
+
+    // resposta
+    response.json(mulherAtualizadaNoBancoDeDados);
+
+  } catch(erro){
+    console.log(erro)
   }
-
-  const mulherEncontrada = mulheres.find(encontraMulher);
-
-  //para alterar o nome
-  if (request.body.nome) {
-    mulherEncontrada.nome = request.body.nome;
-  }
-
-  //para alterar o minibio
-  if (request.body.minibio) {
-    mulherEncontrada.minibio = request.body.minibio;
-  }
-
-  //para alterar a imagem
-  if (request.body.imagem) {
-    mulherEncontrada.imagem = request.body.imagem;
-  }
-
-  // resposta
-  response.json(mulheres)
 }
 
 //DELETE
