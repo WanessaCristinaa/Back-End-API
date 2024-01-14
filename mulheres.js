@@ -1,6 +1,6 @@
 const express =  require("express") // iniciando o express
 const router = express.Router()   // configuração da porta
-
+const cors = require('cors')
  
 const conectaBancodeDados = require('./bancodeDados')
 conectaBancodeDados()
@@ -9,6 +9,7 @@ const Mulher = require('./mulherModel')
 
 const app = express() //iniciando o app
 app.use(express.json())
+app.use(cors())
 
 const porta = 3333 // criando a porta
 
